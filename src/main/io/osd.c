@@ -500,19 +500,22 @@ static bool osdDrawSingleElement(uint8_t item)
 
     case OSD_FLYMODE:
         {
-            char *p = "ACRO";
+            char *p = "123456";
 
-            if (isAirmodeActive()) {
-                p = "AIR ";
-            }
+            p = " RATE";
 
-            if (FLIGHT_MODE(FAILSAFE_MODE)) {
-                p = "!FS!";
-            } else if (FLIGHT_MODE(ANGLE_MODE)) {
-                p = "STAB";
-            } else if (FLIGHT_MODE(HORIZON_MODE)) {
-                p = "HOR ";
-            }
+            //if (isAirmodeActive())
+            //    p = "AIR";
+
+            if (FLIGHT_MODE(FAILSAFE_MODE))
+                p = "!!FS!!";
+            else if (FLIGHT_MODE(ANGLE_MODE))
+                p = "ANGLE";
+            else if (FLIGHT_MODE(HORIZON_MODE))
+                p = "HORIZ";
+
+            if(IS_RC_MODE_ACTIVE(BOXFLIPOVERAFTERCRASH))
+            	p = "TURTLE";
 
             displayWrite(osdDisplayPort, elemPosX, elemPosY, p);
             return true;
