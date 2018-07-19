@@ -26,6 +26,8 @@
 
 #define CONTROL_RATE_PROFILE_COUNT  6
 
+#define CONTROL_RATE_LIMIT_MAX	1998
+
 typedef enum {
     RATES_TYPE_BETAFLIGHT = 0,
     RATES_TYPE_RACEFLIGHT,
@@ -48,6 +50,7 @@ typedef struct controlRateConfig_s {
     uint16_t tpa_breakpoint;                // Breakpoint where TPA is activated
     uint8_t throttle_limit_type;            // Sets the throttle limiting type - off, scale or clip
     uint8_t throttle_limit_percent;         // Sets the maximum pilot commanded throttle limit
+    uint16_t rate_limit[3];                 // Sets the maximum rate for the axes
 } controlRateConfig_t;
 
 PG_DECLARE_ARRAY(controlRateConfig_t, CONTROL_RATE_PROFILE_COUNT, controlRateProfiles);
