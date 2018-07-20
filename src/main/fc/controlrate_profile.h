@@ -26,6 +26,7 @@
 
 #define CONTROL_RATE_PROFILE_COUNT  6
 
+#define CONTROL_RATE_LIMIT_MIN	200
 #define CONTROL_RATE_LIMIT_MAX	1998
 
 typedef enum {

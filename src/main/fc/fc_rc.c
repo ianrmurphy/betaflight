@@ -170,7 +170,7 @@ static void calculateSetpointRate(int axis)
         angleRate = applyRates(axis, rcCommandf, rcCommandfAbs);
     }
     // Rate limit from profile (deg/sec)
-    setpointRate[axis] = constrainf(angleRate, -1.0f * currentControlRateProfile->rate_limit[axis], 1.0f * currentControlRateProfile->rate_limit[axis]);
+    angleRate = constrainf(angleRate, -1.0f * currentControlRateProfile->rate_limit[axis], 1.0f * currentControlRateProfile->rate_limit[axis]);
     setpointRate[axis] = constrainf(angleRate, -SETPOINT_RATE_LIMIT, SETPOINT_RATE_LIMIT); // Rate limit protection (deg/sec)
 
     DEBUG_SET(DEBUG_ANGLERATE, axis, angleRate);
