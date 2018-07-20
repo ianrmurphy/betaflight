@@ -963,8 +963,9 @@ static bool mspProcessOutCommand(uint8_t cmdMSP, sbuf_t *dst)
         sbufWriteU16(dst, currentControlRateProfile->tpa_breakpoint);
         sbufWriteU8(dst, currentControlRateProfile->rcExpo[FD_YAW]);
         sbufWriteU8(dst, currentControlRateProfile->rcRates[FD_YAW]);
-        sbufWriteU8(dst, currentControlRateProfile->rcRates[FD_PITCH]);
-        sbufWriteU8(dst, currentControlRateProfile->rcExpo[FD_PITCH]);
+        sbufWriteU16(dst, currentControlRateProfile->rate_limit[FD_ROLL]);
+        sbufWriteU16(dst, currentControlRateProfile->rate_limit[FD_PITCH]);
+        sbufWriteU16(dst, currentControlRateProfile->rate_limit[FD_YAW]);
         break;
 
     case MSP_PID:
