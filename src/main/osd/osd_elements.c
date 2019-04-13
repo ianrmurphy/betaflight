@@ -1243,6 +1243,22 @@ static void osdElementWarnings(osdElementParms_t *element)
         return;
     }
 
+    // RSSI
+    if (osdWarnGetState(OSD_WARNING_RSSI) && (getRssiPercent() < osdConfig()->rssi_alarm)) {
+        osdFormatMessage(element->buff, OSD_FORMAT_MESSAGE_BUFFER_SIZE, "RSSI LOW");
+        SET_BLINK(OSD_WARNINGS);
+        return;
+    }
+
+#ifdef USE_RX_LINK_QUALITY_INFO
+    // Link Quality
+    if (osdWarnGetState(OSD_WARNING_LINK_QUALITY) && (rxGetLinkQualityPercent() < osdConfig()->link_quality_alarm)) {
+        osdFormatMessage(element->buff, OSD_FORMAT_MESSAGE_BUFFER_SIZE, "LINK QUALITY");
+        SET_BLINK(OSD_WARNINGS);
+        return;
+    }
+#endif // USE_RX_LINK_QUALITY_INFO
+
     osdFormatMessage(element->buff, OSD_FORMAT_MESSAGE_BUFFER_SIZE, NULL);
 }
 
@@ -1517,6 +1533,14 @@ void osdUpdateAlarms(void)
     } else {
         CLR_BLINK(OSD_RSSI_VALUE);
     }
+
+#ifdef USE_RX_LINK_QUALITY_INFO
+    if (rxGetLinkQualityPercent() < osdConfig()->link_quality_alarm) {
+        SET_BLINK(OSD_LINK_QUALITY);
+    } else {
+        CLR_BLINK(OSD_LINK_QUALITY);
+    }
+#endif // USE_RX_LINK_QUALITY_INFO
 
     if (getBatteryState() == BATTERY_OK) {
         CLR_BLINK(OSD_MAIN_BATT_VOLTAGE);
