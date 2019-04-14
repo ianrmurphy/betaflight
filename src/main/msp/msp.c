@@ -810,8 +810,11 @@ static bool mspCommonProcessOutCommand(uint8_t cmdMSP, sbuf_t *dst, mspPostProce
 #endif // USE_OSD_STICK_OVERLAY
 
         // API >= 1.42
-        // Send the Link Quality alarm
+#ifdef USE_RX_LINK_QUALITY_INFO
         sbufWriteU8(dst, osdConfig()->link_quality_alarm);
+#else
+        sbufWriteU8(dst, 0);
+#endif // USE_RX_LINK_QUALITY_INFO
 
 #endif // USE_OSD
         break;
